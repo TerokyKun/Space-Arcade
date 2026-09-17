@@ -10,6 +10,8 @@
 size = Vector2(146.73172, 148.8372)
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1590136639]
+collision_layer = 4
+collision_mask = 3
 script = ExtResource("2_4gy2x")
 DropPickup = ExtResource("2_s7o4h")
 

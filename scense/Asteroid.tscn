@@ -7,6 +7,8 @@
 size = Vector2(126, 129)
 
 [node name="Asteroid" type="Area2D" unique_id=2017044883]
+collision_layer = 1
+collision_mask = 2
 script = ExtResource("1_a71d7")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=344392557]

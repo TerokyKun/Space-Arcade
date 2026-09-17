@@ -24,8 +24,8 @@ public partial class Bullet : CharacterBody2D
     {
         _sprite = GetNodeOrNull<Sprite2D>("Sprite2D");
 
-        // Пуля не должна участвовать в обычной физике
-        CollisionLayer = 0;
+        // Пуля имеет собственный физический слой, но не участвует в обычном столкновении тел
+        CollisionLayer = 16;
         CollisionMask = 0;
 
         GetTree().CreateTimer(LifeTime).Timeout += QueueFree;
@@ -71,6 +71,9 @@ public partial class Bullet : CharacterBody2D
             exclude.Add(shooterBody.GetRid());
 
         var query = PhysicsRayQueryParameters2D.Create(start, end);
+        // Лучи попадают только в окружение, игрока, врагов и другие снаряды.
+        // Пикапы (хилки/дроп) физически не являются целями и не съедают пули.
+        query.CollisionMask = 1 | 2 | 4 | 16;
         query.CollideWithBodies = true;
         query.CollideWithAreas = true;
         query.Exclude = exclude;

@@ -3,6 +3,8 @@ using Godot;
 public partial class CommanderShot : Area2D
 {
     [Export] public float Lifetime = 2.5f;
+    // Слой врагов (4): снаряд дрона задевает только врагов.
+    [Export] public uint EnemyMask = 4u;
 
     private Vector2 _direction = Vector2.Up;
     private float _damage = 10f;
@@ -13,6 +15,7 @@ public partial class CommanderShot : Area2D
     public override void _Ready()
     {
         BodyEntered += OnBodyEntered;
+        CollisionMask = EnemyMask;
     }
 
     public override void _ExitTree()

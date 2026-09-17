@@ -4,7 +4,8 @@ public partial class HomingRocket : Area2D
 {
     [Export] public float TurnSpeed = 4.5f;
     [Export] public float Lifetime = 3.5f;
-    [Export] public uint EnemyMask = 1;
+    // Слой врагов (4). Ракета сталкивается только с телами/областями врагов.
+    [Export] public uint EnemyMask = 4u;
 
     private Vector2 _direction = Vector2.Up;
     private float _damage = 10f;
@@ -15,6 +16,7 @@ public partial class HomingRocket : Area2D
     public override void _Ready()
     {
         BodyEntered += OnBodyEntered;
+        CollisionMask = EnemyMask;
     }
 
     public override void _ExitTree()

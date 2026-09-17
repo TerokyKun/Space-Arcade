@@ -7,6 +7,8 @@
 size = Vector2(39, 37)
 
 [node name="DropPickup" type="Area2D" unique_id=2026103676]
+collision_layer = 8
+collision_mask = 2
 modulate = Color(0.72458816, 0.6849413, 0.11810916, 1)
 script = ExtResource("1_3vi00")
 

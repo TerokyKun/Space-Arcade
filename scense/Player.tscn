@@ -10,6 +10,8 @@
 size = Vector2(121.7561, 122.04651)
 
 [node name="Player" type="CharacterBody2D" unique_id=836459657]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("2_58td2")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1133350703]
@@ -39,7 +41,7 @@ script = ExtResource("3_o6gri")
 script = ExtResource("3_58td2")
 
 [node name="Muzzle" type="Marker2D" parent="." unique_id=909253397]
-position = Vector2(-4.7683716e-07, -27)
+position = Vector2(-2.842171e-14, -19)
 scale = Vector2(0.3203125, 0.3359375)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=303808174]

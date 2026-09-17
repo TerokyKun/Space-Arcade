@@ -13,7 +13,7 @@ public partial class Asteroid : Area2D
 
     public override void _Ready()
     {
-        AddToGroup("space_object");
+        AddToGroup("environment");
         AddToGroup("asteroid");
 
         BodyEntered += OnBodyEntered;
@@ -61,12 +61,12 @@ public partial class Asteroid : Area2D
         if (health == null)
             return;
 
-        if (health.Team != Health.TeamType.Player && health.Team != Health.TeamType.Enemy)
+        if (health.Team != Health.TeamType.Player)
             return;
 
         _hit = true;
 
-        float damage = health.MaxHP  * DamagePercent;
+        float damage = health.MaxHP * DamagePercent;
         health.ApplyDamage(damage);
 
         QueueFree();

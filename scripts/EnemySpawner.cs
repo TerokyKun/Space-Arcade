@@ -5,6 +5,7 @@ public partial class EnemySpawner : Node2D
     [Export] public PackedScene EnemyScene;
     [Export] public PackedScene AsteroidScene;
     [Export] public PackedScene HealPickupScene;
+    [Export] public PackedScene DropPickupScene;
 
     [Export] public int MaxEnemies = 200;
     [Export] public int MaxAsteroids = 12;
@@ -35,6 +36,7 @@ public partial class EnemySpawner : Node2D
         EnemyScene ??= GD.Load<PackedScene>("res://scense/Enemy.tscn");
         AsteroidScene ??= GD.Load<PackedScene>("res://scense/Asteroid.tscn");
         HealPickupScene ??= GD.Load<PackedScene>("res://scense/HealPickup.tscn");
+        DropPickupScene ??= GD.Load<PackedScene>("res://scense/DropPickup.tscn");
 
         if (EnemyScene == null)
             GD.PushError("❌ Enemy.tscn НЕ НАЙДЕН");
@@ -44,6 +46,9 @@ public partial class EnemySpawner : Node2D
 
         if (HealPickupScene == null)
             GD.PushError("❌ HealPickup.tscn НЕ НАЙДЕН");
+
+        if (DropPickupScene == null)
+            GD.PushError("❌ DropPickup.tscn НЕ НАЙДЕН");
 
         _counter = GetTree().Root.GetNodeOrNull<Counter>("Game/Counter");
         if (_counter == null)
@@ -60,19 +65,19 @@ public partial class EnemySpawner : Node2D
 
         if (_enemyTimer <= 0f)
         {
-            TrySpawnEnemy();
+            SpawnEnemy();
             _enemyTimer = EnemySpawnInterval;
         }
 
         if (_asteroidTimer <= 0f)
         {
-            TrySpawnAsteroid();
+            SpawnAsteroid();
             _asteroidTimer = AsteroidSpawnInterval;
         }
 
         if (_pickupTimer <= 0f)
         {
-            TrySpawnHealPickup();
+            SpawnHealPickup();
             _pickupTimer = PickupSpawnInterval;
         }
     }
@@ -96,14 +101,23 @@ public partial class EnemySpawner : Node2D
         return center + dir * distance;
     }
 
-    private void TrySpawnEnemy()
+    public void SpawnEnemies(int count, bool force = false)
     {
-        var enemies = GetTree().GetNodesInGroup("enemy");
-        if (enemies.Count >= MaxEnemies)
-            return;
+        for (int i = 0; i < count; i++)
+            SpawnEnemy(force);
+    }
 
+    public bool SpawnEnemy(bool force = false)
+    {
         if (EnemyScene == null)
-            return;
+            return false;
+
+        if (!force)
+        {
+            var enemies = GetTree().GetNodesInGroup("enemy");
+            if (enemies.Count >= MaxEnemies)
+                return false;
+        }
 
         Vector2 playerPos = GetPlayerPosition();
         Vector2 spawnPos = GetSpawnPosition(playerPos, EnemySpawnRadius);
@@ -113,16 +127,20 @@ public partial class EnemySpawner : Node2D
         enemy.GlobalPosition = spawnPos;
 
         RegisterEnemy(enemy);
+        return true;
     }
 
-    private void TrySpawnAsteroid()
+    public bool SpawnAsteroid(bool force = false)
     {
-        var asteroids = GetTree().GetNodesInGroup("asteroid");
-        if (asteroids.Count >= MaxAsteroids)
-            return;
-
         if (AsteroidScene == null)
-            return;
+            return false;
+
+        if (!force)
+        {
+            var asteroids = GetTree().GetNodesInGroup("asteroid");
+            if (asteroids.Count >= MaxAsteroids)
+                return false;
+        }
 
         Vector2 playerPos = GetPlayerPosition();
         Vector2 spawnPos = GetSpawnPosition(playerPos, AsteroidSpawnRadius);
@@ -137,16 +155,20 @@ public partial class EnemySpawner : Node2D
         var asteroid = AsteroidScene.Instantiate<Asteroid>();
         GetTree().CurrentScene.AddChild(asteroid);
         asteroid.Initialize(spawnPos, velocity, angularSpeed);
+        return true;
     }
 
-    private void TrySpawnHealPickup()
+    public bool SpawnHealPickup(bool force = false)
     {
-        var pickups = GetTree().GetNodesInGroup("pickup");
-        if (pickups.Count >= MaxPickups)
-            return;
-
         if (HealPickupScene == null)
-            return;
+            return false;
+
+        if (!force)
+        {
+            var pickups = GetTree().GetNodesInGroup("heal_pickup");
+            if (pickups.Count >= MaxPickups)
+                return false;
+        }
 
         Vector2 playerPos = GetPlayerPosition();
         Vector2 spawnPos = GetSpawnPosition(playerPos, PickupSpawnRadius);
@@ -157,6 +179,24 @@ public partial class EnemySpawner : Node2D
         var pickup = HealPickupScene.Instantiate<HealPickup>();
         GetTree().CurrentScene.AddChild(pickup);
         pickup.Initialize(spawnPos, driftDir);
+        return true;
+    }
+
+    public bool SpawnDropPickup()
+    {
+        if (DropPickupScene == null)
+            return false;
+
+        Vector2 playerPos = GetPlayerPosition();
+        Vector2 spawnPos = GetSpawnPosition(playerPos, PickupSpawnRadius);
+
+        float angle = _rng.RandfRange(0f, Mathf.Tau);
+        Vector2 driftDir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+
+        var drop = DropPickupScene.Instantiate<DropPickup>();
+        GetTree().CurrentScene.AddChild(drop);
+        drop.Initialize(spawnPos, driftDir);
+        return true;
     }
 
     private void RegisterEnemy(Enemy enemy)

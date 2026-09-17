@@ -73,6 +73,17 @@ public partial class Lvl : CanvasLayer
 
     public int GetAvailableTokens() => _upgradeTokens;
 
+    public void GrantLevels(int count)
+    {
+        if (count <= 0)
+            return;
+
+        for (int i = 0; i < count; i++)
+            LevelUp();
+
+        RefreshUI();
+    }
+
 private void OnChooseUpgradePressed()
 {
     GD.Print("Кнопка нажата");

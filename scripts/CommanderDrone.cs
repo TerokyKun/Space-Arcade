@@ -3,7 +3,9 @@ using Godot;
 public partial class CommanderDrone : Area2D
 {
     [Export] public PackedScene DroneShotScene;
-    [Export] public uint LineOfSightMask = 1;
+    // environment(1) | enemy(4): линию обзора перекрывают только камни и враги,
+    // но не игрок, не пикапы и не другие снаряды.
+    [Export] public uint LineOfSightMask = 1 | 4;
 
     private Player _player;
     private PlayerUpgrades _upgrades;
@@ -84,6 +86,10 @@ public partial class CommanderDrone : Area2D
         var space = GetWorld2D().DirectSpaceState;
         var query = PhysicsRayQueryParameters2D.Create(GlobalPosition, target.GlobalPosition, LineOfSightMask);
         query.Exclude = new Godot.Collections.Array<Rid>();
+
+        // Сам игрок не должен перекрывать обзор дрона
+        if (_player is CollisionObject2D playerBody && GodotObject.IsInstanceValid(_player))
+            query.Exclude.Add(playerBody.GetRid());
 
         var result = space.IntersectRay(query);
         if (result.Count == 0)

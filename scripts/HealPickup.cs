@@ -18,7 +18,7 @@ public partial class HealPickup : Area2D
 
     public override void _Ready()
     {
-        AddToGroup("space_object");
+        AddToGroup("heal_pickup");
         AddToGroup("pickup");
 
         BodyEntered += OnBodyEntered;
