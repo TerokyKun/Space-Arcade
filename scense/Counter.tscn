@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cmk2orlegmy6x"]
+
+[ext_resource type="Script" uid="uid://3frj2c5kdkuf" path="res://scripts/Counter.cs" id="1_a2wln"]
+
+[node name="Counter" type="CanvasLayer" unique_id=2119287016]
+script = ExtResource("1_a2wln")
+
+[node name="ScoreLabel" type="Label" parent="." unique_id=831040267]
+offset_left = 1021.0
+offset_top = 6.0
+offset_right = 1146.0
+offset_bottom = 66.0
+text = "Score: 0"
+language = "en"

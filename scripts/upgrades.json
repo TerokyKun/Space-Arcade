@@ -1,0 +1,70 @@
+{
+  "classes": [
+    {
+      "id": "teleporter",
+      "kind": "ChooseClass",
+      "title": "Телепортёр",
+      "description": "Shift: телепорт вперёд. После телепорта 2 секунды неуязвимости. Откат 5 секунд.",
+      "class_choice": "Teleporter",
+      "weight": 1
+    },
+    {
+      "id": "commander",
+      "kind": "ChooseClass",
+      "title": "Коммандер",
+      "description": "3 дрона летают вокруг игрока, стреляют по видимым врагам и не задевают игрока.",
+      "class_choice": "Commander",
+      "weight": 1
+    },
+    {
+      "id": "rocketman",
+      "kind": "ChooseClass",
+      "title": "Ракетчик",
+      "description": "5% шанс при выстреле заменить обычный снаряд самонаводящейся ракетой с уроном x3.",
+      "class_choice": "Rocketman",
+      "weight": 1
+    }
+  ],
+  "stats": [
+    {
+      "id": "hp_1",
+      "kind": "MaxHP",
+      "title": "+20% HP",
+      "description": "Увеличивает запас здоровья.",
+      "value": 0.2,
+      "weight": 10
+    },
+    {
+      "id": "firerate_1",
+      "kind": "FireRate",
+      "title": "+15% скорость стрельбы",
+      "description": "Уменьшает задержку между выстрелами.",
+      "value": 0.15,
+      "weight": 10
+    },
+    {
+      "id": "speed_1",
+      "kind": "MoveSpeed",
+      "title": "+10% скорость",
+      "description": "Ускоряет передвижение игрока.",
+      "value": 0.1,
+      "weight": 10
+    },
+    {
+      "id": "damage_1",
+      "kind": "BulletDamage",
+      "title": "+20% урон пули",
+      "description": "Пули игрока наносят больше урона.",
+      "value": 0.2,
+      "weight": 10
+    },
+    {
+      "id": "size_1",
+      "kind": "BulletSize",
+      "title": "+10% размер пули",
+      "description": "Пули становятся крупнее.",
+      "value": 0.1,
+      "weight": 8
+    }
+  ]
+}

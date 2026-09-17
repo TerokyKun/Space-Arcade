@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://cwwkbpjffk7wg"]
+
+[ext_resource type="Script" uid="uid://cllbc46s7erag" path="res://scripts/UpgradeMenu.cs" id="1_5cwqe"]
+
+[node name="UpgradeMenu" type="CanvasLayer" unique_id=1494424222]
+process_mode = 2
+script = ExtResource("1_5cwqe")
+
+[node name="Panel" type="Panel" parent="." unique_id=752718107]
+offset_left = 181.0
+offset_top = 236.0
+offset_right = 948.0
+offset_bottom = 390.0
+
+[node name="TitleLabel" type="Label" parent="Panel" unique_id=1958280085]
+layout_mode = 0
+offset_right = 762.0
+offset_bottom = 32.0
+
+[node name="CloseButton" type="Button" parent="Panel" unique_id=400083174]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 111.0
+offset_right = 66.0
+offset_bottom = 149.0
+text = "Close
+"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel" unique_id=1226181459]
+layout_mode = 0
+offset_right = 763.0
+offset_bottom = 83.0
+
+[node name="OptionsVBox" type="VBoxContainer" parent="Panel/ScrollContainer" unique_id=119912451]
+layout_mode = 2

@@ -1,0 +1,18 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# Godot C# / .NET build output
+.godot/mono/
+bin/
+obj/
+*.csproj.user
+*.sln.docstates
+.vs/
+.mono/
+
+# OS / editor junk
+Thumbs.db
+Desktop.ini
+*.tmp
+*.log

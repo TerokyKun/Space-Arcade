@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://f7t0np06leh0"]
+
+[ext_resource type="Texture2D" uid="uid://7o7y0ahgk2bg" path="res://icon.svg" id="1_s6n04"]
+[ext_resource type="Script" uid="uid://dmobkbx0g5i42" path="res://scripts/Player.cs" id="2_58td2"]
+[ext_resource type="Script" uid="uid://dibt7w56o6p2g" path="res://scripts/Health.cs" id="3_58td2"]
+[ext_resource type="Script" uid="uid://duj1ixaxaknti" path="res://scripts/HealthBar.cs" id="3_o6gri"]
+[ext_resource type="Script" uid="uid://bnoe03o0q83l2" path="res://scripts/PlayerUpgrades.cs" id="5_8uhuw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s6n04"]
+size = Vector2(121.7561, 122.04651)
+
+[node name="Player" type="CharacterBody2D" unique_id=836459657]
+script = ExtResource("2_58td2")
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1133350703]
+position = Vector2(1.0000305, 0)
+scale = Vector2(0.3203125, 0.3359375)
+texture = ExtResource("1_s6n04")
+
+[node name="Hitbox" type="CollisionShape2D" parent="." unique_id=1628421458]
+position = Vector2(1.5258789e-05, 0)
+scale = Vector2(0.32031247, 0.3359375)
+shape = SubResource("RectangleShape2D_s6n04")
+
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=1447102013]
+anchors_preset = -1
+anchor_top = -0.372
+anchor_right = 1.098
+anchor_bottom = -0.16100001
+offset_left = -28.0
+offset_top = -31.0
+offset_right = -24.0
+offset_bottom = 9.0
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 26
+script = ExtResource("3_o6gri")
+
+[node name="Health" type="Node" parent="." unique_id=213869937]
+script = ExtResource("3_58td2")
+
+[node name="Muzzle" type="Marker2D" parent="." unique_id=909253397]
+position = Vector2(-4.7683716e-07, -27)
+scale = Vector2(0.3203125, 0.3359375)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=303808174]
+position = Vector2(-1.9999847, 0)
+scale = Vector2(0.32031247, 0.3359375)
+process_callback = 0
+limit_smoothed = true
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+
+[node name="PlayerUpgrades" type="Node2D" parent="." unique_id=165087833]
+script = ExtResource("5_8uhuw")

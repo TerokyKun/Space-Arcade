@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://ct06omuro8fqv"]
+
+[ext_resource type="Script" uid="uid://r2kncoktnxrg" path="res://scripts/SpaceBackground.cs" id="1_5tj8p"]
+[ext_resource type="Script" uid="uid://cifqa32nqabuy" path="res://scripts/SpaceObjectSpawner.cs" id="2_g64ob"]
+
+[node name="Arena" type="Node2D" unique_id=555869681]
+
+[node name="SpaceBackground" type="Node2D" parent="." unique_id=30411140]
+script = ExtResource("1_5tj8p")
+
+[node name="SpaceObjectSpawner" type="Node2D" parent="." unique_id=1117263315]
+script = ExtResource("2_g64ob")

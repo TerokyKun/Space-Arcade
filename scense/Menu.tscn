@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://y7fylnv8qesg"]
+
+[ext_resource type="Script" uid="uid://ruoi605g2mvw" path="res://scripts/Menu.cs" id="1_stkky"]
+[ext_resource type="Texture2D" uid="uid://7o7y0ahgk2bg" path="res://icon.svg" id="2_bcgf6"]
+
+[node name="Menu" type="CanvasLayer" unique_id=352477206]
+script = ExtResource("1_stkky")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1455327317]
+position = Vector2(611, 342)
+scale = Vector2(10.546875, 6.34375)
+texture = ExtResource("2_bcgf6")
+
+[node name="Restart" type="Button" parent="." unique_id=48675321]
+offset_left = 452.0
+offset_top = 298.0
+offset_right = 768.0
+offset_bottom = 362.0
+text = "Restart"

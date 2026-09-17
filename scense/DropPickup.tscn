@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://pnx1y4uu83xc"]
+
+[ext_resource type="Script" uid="uid://c02o40e3ha08e" path="res://scripts/DropPickup.cs" id="1_3vi00"]
+[ext_resource type="Texture2D" uid="uid://7o7y0ahgk2bg" path="res://icon.svg" id="2_m5fdm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dd0em"]
+size = Vector2(39, 37)
+
+[node name="DropPickup" type="Area2D" unique_id=2026103676]
+modulate = Color(0.72458816, 0.6849413, 0.11810916, 1)
+script = ExtResource("1_3vi00")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=374104797]
+modulate = Color(0.72458816, 0.6849413, 0.11810916, 1)
+position = Vector2(1, 2)
+scale = Vector2(0.171875, 0.1796875)
+texture = ExtResource("2_m5fdm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2066922383]
+visible = false
+modulate = Color(0, 0.62352943, 1, 1)
+position = Vector2(1, 2)
+shape = SubResource("RectangleShape2D_dd0em")

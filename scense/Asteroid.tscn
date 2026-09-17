@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://73lafj6nk1m5"]
+
+[ext_resource type="Texture2D" uid="uid://7o7y0ahgk2bg" path="res://icon.svg" id="1_31jin"]
+[ext_resource type="Script" uid="uid://d3gju640rh7tt" path="res://scripts/Asteroid.cs" id="1_a71d7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a71d7"]
+size = Vector2(126, 129)
+
+[node name="Asteroid" type="Area2D" unique_id=2017044883]
+script = ExtResource("1_a71d7")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=344392557]
+modulate = Color(0.99999994, 0.28308004, 0.09077533, 1)
+texture = ExtResource("1_31jin")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1954193413]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_a71d7")

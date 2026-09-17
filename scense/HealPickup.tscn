@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://c3yqhlfi6qmxw"]
+
+[ext_resource type="Script" uid="uid://pqoqpu342ksy" path="res://scripts/HealPickup.cs" id="1_2hx3p"]
+[ext_resource type="Texture2D" uid="uid://7o7y0ahgk2bg" path="res://icon.svg" id="2_hdfmt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0o0o4"]
+size = Vector2(43, 43)
+
+[node name="HealPickup" type="Area2D" unique_id=77697352]
+script = ExtResource("1_2hx3p")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=396946005]
+modulate = Color(0.105882354, 0.81960785, 0.20392157, 1)
+position = Vector2(3.8146973e-06, 1.0000038)
+scale = Vector2(0.34375, 0.34375)
+texture = ExtResource("2_hdfmt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=380033645]
+position = Vector2(-0.5, 1.5)
+shape = SubResource("RectangleShape2D_0o0o4")

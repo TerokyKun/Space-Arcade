@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://dmll4kt4f26u2"]
+
+[ext_resource type="Script" uid="uid://cackyjw3em8hu" path="res://scripts/GameManager.cs" id="1_8jub7"]
+[ext_resource type="Script" uid="uid://bavjqn0thfllt" path="res://scripts/PauseMenu.cs" id="1_rxrxa"]
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=1331511988]
+script = ExtResource("1_rxrxa")
+
+[node name="Panel" type="Panel" parent="." unique_id=1472050050]
+offset_left = 434.0
+offset_top = 212.0
+offset_right = 740.0
+offset_bottom = 395.0
+
+[node name="Paused" type="Label" parent="Panel" unique_id=2061379115]
+layout_mode = 0
+offset_left = 119.0
+offset_top = 5.0
+offset_right = 176.0
+offset_bottom = 28.0
+text = "Paused"
+
+[node name="Resume" type="Button" parent="Panel" unique_id=2120005211]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 58.0
+offset_right = 210.0
+offset_bottom = 89.0
+text = "Resume"
+
+[node name="Quit" type="Button" parent="Panel" unique_id=1102946537]
+layout_mode = 0
+offset_left = 81.0
+offset_top = 115.0
+offset_right = 211.0
+offset_bottom = 146.0
+theme_override_colors/font_color = Color(1, 0.1254902, 0.1882353, 1)
+text = "Quit"
+
+[node name="GameManager" type="Node" parent="." unique_id=1359489881]
+script = ExtResource("1_8jub7")
