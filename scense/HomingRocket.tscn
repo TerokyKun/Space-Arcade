@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cjo21lsod75fy"]
+
+[ext_resource type="Script" path="res://scripts/HomingRocket.cs" id="1_hr"]
+[ext_resource type="Texture2D" uid="uid://7o7y0ahgk2bg" path="res://icon.svg" id="2_hr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hr"]
+size = Vector2(12, 26)
+
+[node name="HomingRocket" type="Area2D"]
+collision_layer = 16
+script = ExtResource("1_hr")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+modulate = Color(1, 0.55, 0.1, 1)
+scale = Vector2(0.24, 0.5)
+texture = ExtResource("2_hr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_hr")

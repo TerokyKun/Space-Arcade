@@ -9,6 +9,8 @@ public partial class CommanderDroneManager : Node
     private PlayerUpgrades _upgrades;
     private readonly List<CommanderDrone> _drones = new();
 
+    public int ActiveDroneCount => _drones.Count;
+
     public override void _Ready()
     {
         ProcessMode = ProcessModeEnum.Always;

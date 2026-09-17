@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dr0n3sh0t5c3n"]
+
+[ext_resource type="Script" path="res://scripts/CommanderShot.cs" id="1_cs"]
+[ext_resource type="Texture2D" uid="uid://7o7y0ahgk2bg" path="res://icon.svg" id="2_cs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cs"]
+size = Vector2(7, 17)
+
+[node name="CommanderShot" type="Area2D"]
+collision_layer = 16
+script = ExtResource("1_cs")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+modulate = Color(0.3, 0.9, 1, 1)
+scale = Vector2(0.14, 0.28)
+texture = ExtResource("2_cs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_cs")

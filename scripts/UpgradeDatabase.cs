@@ -10,6 +10,7 @@ public partial class UpgradeDatabase : Node
 
     public List<UpgradeDefinition> ClassChoices { get; private set; } = new();
     public List<UpgradeDefinition> StatChoices { get; private set; } = new();
+    public List<UpgradeDefinition> LegendaryChoices { get; private set; } = new();
 
     public override void _Ready()
     {
@@ -28,6 +29,7 @@ public partial class UpgradeDatabase : Node
     {
         ClassChoices.Clear();
         StatChoices.Clear();
+        LegendaryChoices.Clear();
 
         if (!FileAccess.FileExists(JsonPath))
         {
@@ -46,15 +48,17 @@ public partial class UpgradeDatabase : Node
 
         var root = (Godot.Collections.Dictionary)parsed;
 
-        LoadList(root, "classes", ClassChoices, true);
-        LoadList(root, "stats", StatChoices, false);
+        LoadList(root, "classes", ClassChoices, true, UpgradeRarity.Rare);
+        LoadList(root, "stats", StatChoices, false, UpgradeRarity.Common);
+        LoadList(root, "legendary", LegendaryChoices, false, UpgradeRarity.Legendary);
     }
 
     private void LoadList(
         Godot.Collections.Dictionary root,
         string key,
         List<UpgradeDefinition> target,
-        bool classList
+        bool classList,
+        UpgradeRarity defaultRarity
     )
     {
         if (!root.ContainsKey(key))
@@ -81,6 +85,7 @@ public partial class UpgradeDatabase : Node
                 Value = GetFloat(data, "value", 0f),
                 ClassChoice = ParseClass(GetString(data, "class_choice", "None")),
                 Weight = GetFloat(data, "weight", 1f),
+                Rarity = ParseRarity(GetString(data, "rarity", ""), defaultRarity),
                 Icon = LoadIcon(GetString(data, "icon", ""))
             };
 
@@ -123,5 +128,10 @@ public partial class UpgradeDatabase : Node
     private static PlayerClassType ParseClass(string value)
     {
         return Enum.TryParse(value, true, out PlayerClassType result) ? result : PlayerClassType.None;
+    }
+
+    private static UpgradeRarity ParseRarity(string value, UpgradeRarity fallback)
+    {
+        return Enum.TryParse(value, true, out UpgradeRarity result) ? result : fallback;
     }
 }

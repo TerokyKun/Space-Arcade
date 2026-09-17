@@ -140,14 +140,22 @@ public partial class Player : CharacterBody2D
             _reverseMaxSpeed = BaseReverseMaxSpeed;
             _friction = BaseFriction;
             _fireCooldown = BaseFireCooldown;
-            return;
+        }
+        else
+        {
+            _acceleration = BaseAcceleration;
+            _maxSpeed = BaseMaxSpeed * _upgrades.MoveSpeedMultiplier;
+            _reverseMaxSpeed = BaseReverseMaxSpeed * _upgrades.MoveSpeedMultiplier;
+            _friction = BaseFriction;
+            _fireCooldown = BaseFireCooldown / Mathf.Max(0.01f, _upgrades.FireRateMultiplier);
         }
 
-        _acceleration = BaseAcceleration;
-        _maxSpeed = BaseMaxSpeed * _upgrades.MoveSpeedMultiplier;
-        _reverseMaxSpeed = BaseReverseMaxSpeed * _upgrades.MoveSpeedMultiplier;
-        _friction = BaseFriction;
-        _fireCooldown = BaseFireCooldown / Mathf.Max(0.01f, _upgrades.FireRateMultiplier);
+        // Апгрейды HP применяются к реальному запасу здоровья (без мгновенного отхила).
+        if (_health != null && GodotObject.IsInstanceValid(_health))
+        {
+            float healthMultiplier = _upgrades != null ? _upgrades.HealthMultiplier : 1f;
+            _health.SetMaxHealth(100f * healthMultiplier, false);
+        }
     }
 
     private void OnUpgradesChanged()
@@ -161,15 +169,31 @@ public partial class Player : CharacterBody2D
         if (_bulletScene == null || _muzzle == null)
             return;
 
-        Bullet bullet = _bulletScene.Instantiate<Bullet>();
-
-        Node parent = GetTree().CurrentScene ?? GetTree().Root;
-        parent.AddChild(bullet);
-
         float damage = 25f * (_upgrades != null ? _upgrades.BulletDamageMultiplier : 1f);
+        float size = _upgrades != null ? _upgrades.BulletSizeMultiplier : 1f;
+        int extra = _upgrades != null ? Mathf.Max(0, _upgrades.ExtraProjectiles) : 0;
+        int total = 1 + extra;
+        const float spread = 0.24f;
 
-        bullet.GlobalPosition = _muzzle.GlobalPosition;
-        bullet.Init(direction, damage, 900f, Bullet.BulletOwner.Player, this);
+        for (int i = 0; i < total; i++)
+        {
+            Vector2 dir = direction;
+
+            if (total > 1)
+            {
+                float t = i / (float)(total - 1);
+                dir = direction.Rotated(Mathf.Lerp(-spread, spread, t));
+            }
+
+            Bullet bullet = _bulletScene.Instantiate<Bullet>();
+
+            Node parent = GetTree().CurrentScene ?? GetTree().Root;
+            parent.AddChild(bullet);
+
+            bullet.GlobalPosition = _muzzle.GlobalPosition;
+            bullet.Scale = new Vector2(size, size);
+            bullet.Init(dir, damage, 900f, Bullet.BulletOwner.Player, this);
+        }
     }
 
     public void GrantInvulnerability(float seconds)

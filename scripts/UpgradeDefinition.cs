@@ -16,4 +16,6 @@ public partial class UpgradeDefinition : Resource
     [Export] public float Value = 0.15f;
 
     [Export] public float Weight = 1f;
+
+    [Export] public UpgradeRarity Rarity = UpgradeRarity.Common;
 }

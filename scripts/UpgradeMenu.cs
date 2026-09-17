@@ -107,7 +107,7 @@ public partial class UpgradeMenu : CanvasLayer
             return;
         }
 
-        var options = PickUpToThreeUnique(source);
+        var options = PickWeightedUpToThree(source);
 
         foreach (var option in options)
         {
@@ -122,31 +122,69 @@ public partial class UpgradeMenu : CanvasLayer
         if (db == null)
             return new List<UpgradeDefinition>();
 
-        return chooseClass ? db.ClassChoices : db.StatChoices;
+        if (chooseClass)
+            return db.ClassChoices;
+
+        // Обычные стартовые улучшения + редко появляющиеся легендарные баффы.
+        var combined = new List<UpgradeDefinition>();
+        combined.AddRange(db.StatChoices);
+        combined.AddRange(db.LegendaryChoices);
+        return combined;
     }
 
-    private List<UpgradeDefinition> PickUpToThreeUnique(IReadOnlyList<UpgradeDefinition> source)
+    private List<UpgradeDefinition> PickWeightedUpToThree(List<UpgradeDefinition> source)
     {
         var result = new List<UpgradeDefinition>();
-        var used = new HashSet<int>();
+        var pool = new List<UpgradeDefinition>(source);
 
-        if (source == null || source.Count == 0)
-            return result;
+        int count = Mathf.Min(3, pool.Count);
 
-        int count = Mathf.Min(3, source.Count);
-
-        while (result.Count < count)
+        while (result.Count < count && pool.Count > 0)
         {
-            int index = _rng.RandiRange(0, source.Count - 1);
+            float total = 0f;
+            for (int i = 0; i < pool.Count; i++)
+                total += EffectiveWeight(pool[i]);
 
-            if (used.Contains(index))
-                continue;
+            float roll = _rng.Randf() * total;
+            int chosen = pool.Count - 1;
 
-            used.Add(index);
-            result.Add(source[index]);
+            for (int i = 0; i < pool.Count; i++)
+            {
+                roll -= EffectiveWeight(pool[i]);
+                if (roll <= 0f)
+                {
+                    chosen = i;
+                    break;
+                }
+            }
+
+            result.Add(pool[chosen]);
+            pool.RemoveAt(chosen);
         }
 
         return result;
+    }
+
+    private static float EffectiveWeight(UpgradeDefinition def)
+    {
+        float rarityMultiplier = def.Rarity switch
+        {
+            UpgradeRarity.Legendary => 1f,
+            UpgradeRarity.Rare => 2f,
+            _ => 3f
+        };
+
+        return Mathf.Max(0.01f, def.Weight) * rarityMultiplier;
+    }
+
+    private static Color RarityColor(UpgradeRarity rarity)
+    {
+        return rarity switch
+        {
+            UpgradeRarity.Legendary => new Color(1f, 0.82f, 0.2f),
+            UpgradeRarity.Rare => new Color(0.5f, 0.75f, 1f),
+            _ => new Color(0.9f, 0.9f, 0.9f)
+        };
     }
 
     private Button CreateOptionButton(UpgradeDefinition upgrade)
@@ -154,7 +192,15 @@ public partial class UpgradeMenu : CanvasLayer
         var btn = new Button();
         btn.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
         btn.CustomMinimumSize = new Vector2(0, 90);
-        btn.Text = $"{upgrade.Title}\n{upgrade.Description}";
+
+        string tag = upgrade.Rarity == UpgradeRarity.Legendary
+            ? "★ "
+            : upgrade.Rarity == UpgradeRarity.Rare
+                ? "◆ "
+                : "";
+
+        btn.Text = $"{tag}{upgrade.Title}\n{upgrade.Description}";
+        btn.AddThemeColorOverride("font_color", RarityColor(upgrade.Rarity));
 
         if (upgrade.Icon != null)
             btn.Icon = upgrade.Icon;

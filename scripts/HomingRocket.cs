@@ -47,8 +47,22 @@ public partial class HomingRocket : Area2D
         Node2D target = FindClosestEnemy();
         if (target != null)
         {
-            Vector2 desired = (target.GlobalPosition - GlobalPosition).Normalized();
-            _direction = _direction.Slerp(desired, TurnSpeed * d).Normalized();
+            Vector2 toTarget = target.GlobalPosition - GlobalPosition;
+            float dist = toTarget.Length();
+
+            if (dist > 0.01f)
+            {
+                Vector2 desired = toTarget / dist;
+
+                // Дуга: чем дальше враг, тем сильнее ракета заходит сбоку (вокруг препятствий),
+                // у цели выправляется и бьёт чётко в ближайшего врага.
+                float side = Mathf.Sign(_direction.X * toTarget.Y - _direction.Y * toTarget.X);
+                Vector2 perp = new Vector2(-_direction.Y, _direction.X) * side;
+                float arcAmount = Mathf.Min(1f, dist / 260f) * 0.65f;
+
+                Vector2 steered = (desired + perp * arcAmount).Normalized();
+                _direction = _direction.Slerp(steered, TurnSpeed * d).Normalized();
+            }
         }
 
         GlobalPosition += _direction * _speed * d;
@@ -81,14 +95,15 @@ public partial class HomingRocket : Area2D
         if (body == _owner)
             return;
 
-        if (body.IsInGroup("enemy"))
+        // Ракета игнорирует всё (камни, пикапы, игрока) — CollisionMask только слой врагов.
+        if (body is Enemy enemy)
         {
-            body.Call("TakeDamage", _damage);
+            enemy.TakeDamage(_damage);
             QueueFree();
             return;
         }
 
-        if (body.HasMethod("TakeDamage"))
+        if (body.IsInGroup("enemy"))
         {
             body.Call("TakeDamage", _damage);
             QueueFree();

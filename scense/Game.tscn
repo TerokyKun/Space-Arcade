@@ -13,6 +13,9 @@
 [ext_resource type="Script" uid="uid://d2u0p5deflxw3" path="res://scripts/UpgradeDatabase.cs" id="9_jahpc"]
 [ext_resource type="Script" uid="uid://cp4lx7byu4ygq" path="res://scripts/TeleportAbility.cs" id="10_o7tio"]
 [ext_resource type="PackedScene" uid="uid://dbgmenu0v2h8a" path="res://scense/DebugMenu.tscn" id="11_dbgm"]
+[ext_resource type="PackedScene" uid="uid://r0ckethom1ng1" path="res://scense/HomingRocket.tscn" id="12_hrock"]
+[ext_resource type="PackedScene" uid="uid://dr0n3scen3nd01" path="res://scense/CommanderDrone.tscn" id="13_cdrn"]
+[ext_resource type="PackedScene" uid="uid://ab1l1tyhud5cn" path="res://scense/AbilityHud.tscn" id="14_ahud"]
 
 [node name="Game" type="Node2D" unique_id=1256089766]
 position = Vector2(0, -2)
@@ -25,12 +28,14 @@ position = Vector2(0, -2)
 
 [node name="RocketmanAbility" type="Node" parent="Arena/Player" unique_id=897689057]
 script = ExtResource("4_6yh1h")
+RocketScene = ExtResource("12_hrock")
 
 [node name="TeleportAbility" type="Node" parent="Arena/Player" unique_id=866222829]
 script = ExtResource("10_o7tio")
 
 [node name="CommanderDroneManager" type="Node" parent="Arena/Player" unique_id=459867222]
 script = ExtResource("6_du45n")
+DroneScene = ExtResource("13_cdrn")
 
 [node name="EnemySpawner" parent="Arena" unique_id=965146668 instance=ExtResource("4_tkedd")]
 
@@ -46,3 +51,5 @@ script = ExtResource("6_du45n")
 script = ExtResource("9_jahpc")
 
 [node name="DebugMenu" parent="." unique_id=747474747 instance=ExtResource("11_dbgm")]
+
+[node name="AbilityHud" parent="." unique_id=984317623 instance=ExtResource("14_ahud")]

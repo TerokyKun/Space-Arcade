@@ -52,14 +52,15 @@ public partial class CommanderShot : Area2D
         if (body == _owner)
             return;
 
-        if (body.IsInGroup("enemy"))
+        // Снаряд дрона задевает только врагов (CollisionMask только слой врагов).
+        if (body is Enemy enemy)
         {
-            body.Call("TakeDamage", _damage);
+            enemy.TakeDamage(_damage);
             QueueFree();
             return;
         }
 
-        if (body.HasMethod("TakeDamage"))
+        if (body.IsInGroup("enemy"))
         {
             body.Call("TakeDamage", _damage);
             QueueFree();

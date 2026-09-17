@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://b1l1tyhud5cn"]
+
+[ext_resource type="Script" path="res://scripts/AbilityHud.cs" id="1_ah"]
+
+[node name="AbilityHud" type="CanvasLayer"]
+script = ExtResource("1_ah")
+
+[node name="Panel" type="PanelContainer" parent="."]
+mouse_filter = 2
+offset_left = 14.0
+offset_top = 14.0
+offset_right = 360.0
+offset_bottom = 170.0
+
+[node name="Margin" type="MarginContainer" parent="Panel"]
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 6
+
+[node name="VBox" type="VBoxContainer" parent="Panel/Margin"]
+
+[node name="ClassLabel" type="Label" parent="Panel/Margin/VBox"]
+text = "Класс: не выбран"
+
+[node name="TeleportLabel" type="Label" parent="Panel/Margin/VBox"]
+visible = false
+text = "Телепорт: —"
+modulate = Color(0.45, 1, 0.6, 1)
+
+[node name="RocketLabel" type="Label" parent="Panel/Margin/VBox"]
+visible = false
+text = "Ракетчик: —"
+modulate = Color(1, 0.72, 0.32, 1)
+
+[node name="CommanderLabel" type="Label" parent="Panel/Margin/VBox"]
+visible = false
+text = "Коммандер: —"
+modulate = Color(0.42, 0.92, 1, 1)

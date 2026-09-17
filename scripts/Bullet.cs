@@ -115,7 +115,21 @@ public partial class Bullet : CharacterBody2D
                 return;
             }
 
-            health.ApplyDamage(_damage);
+            // Урон игроку идёт через Player.TakeDamage (учитывает неуязвимость телепорта),
+            // урон врагу — через Enemy.TakeDamage (корректная смерть + дроп XP).
+            if (health.Team == Health.TeamType.Player && collider is Player playerBody)
+            {
+                playerBody.TakeDamage(_damage);
+            }
+            else if (health.Team == Health.TeamType.Enemy && collider is Enemy enemyBody)
+            {
+                enemyBody.TakeDamage(_damage);
+            }
+            else
+            {
+                health.ApplyDamage(_damage);
+            }
+
             QueueFree();
             return;
         }

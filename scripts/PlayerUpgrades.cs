@@ -14,7 +14,9 @@ public partial class PlayerUpgrades : Node
     [Export] public float TeleportCooldown = 5f;
     [Export] public float TeleportInvulnerability = 2f;
 
-    [Export] public float RocketChance = 0.05f;
+    [Export] public float RocketChance = 0.08f;
+
+    [Export] public int ExtraProjectiles = 0;
 
     [Export] public int CommanderDrones = 3;
     [Export] public float CommanderOrbitRadius = 48f;
@@ -54,6 +56,10 @@ public partial class PlayerUpgrades : Node
 
             case UpgradeKind.BulletSize:
                 BulletSizeMultiplier += upgrade.Value;
+                break;
+
+            case UpgradeKind.ExtraProjectiles:
+                ExtraProjectiles += (int)upgrade.Value;
                 break;
         }
 

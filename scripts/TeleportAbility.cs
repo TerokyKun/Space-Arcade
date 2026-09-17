@@ -11,6 +11,10 @@ public partial class TeleportAbility : Node
     private PlayerUpgrades _upgrades;
     private float _cooldownTimer = 0f;
 
+    public bool IsReady => _cooldownTimer <= 0f;
+    public float CooldownRemaining => Mathf.Max(0f, _cooldownTimer);
+    public float CooldownDuration => _upgrades != null ? _upgrades.TeleportCooldown : DefaultCooldown;
+
     public override void _Ready()
     {
         ProcessMode = ProcessModeEnum.Always;
@@ -35,7 +39,12 @@ public partial class TeleportAbility : Node
         if (_player == null)
             return;
 
-        if (Input.IsActionJustPressed("tp") && _cooldownTimer <= 0f)
+        // Способность активна только после выбора класса Телепортёр.
+        bool isTeleporter = _upgrades != null && _upgrades.SelectedClass == PlayerClassType.Teleporter;
+        if (!isTeleporter)
+            return;
+
+        if (Input.IsActionJustPressed("tp") && IsReady)
             TryTeleport();
     }
 

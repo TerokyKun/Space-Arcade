@@ -67,7 +67,12 @@ public partial class Asteroid : Area2D
         _hit = true;
 
         float damage = health.MaxHP * DamagePercent;
-        health.ApplyDamage(damage);
+
+        // Урон игроку через Player.TakeDamage, чтобы работала неуязвимость (телепорт).
+        if (body is Player playerBody)
+            playerBody.TakeDamage(damage);
+        else
+            health.ApplyDamage(damage);
 
         QueueFree();
     }
