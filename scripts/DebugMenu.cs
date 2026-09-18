@@ -62,6 +62,12 @@ public partial class DebugMenu : CanvasLayer
         AddButton("Хилка", () => GetSpawner()?.SpawnHealPickup(true));
         AddButton("Дроп (XP)", () => GetSpawner()?.SpawnDropPickup());
 
+        AddSection("Таймер");
+        AddButton("Время +1 мин", () => GetHud()?.AddTime(60.0));
+        AddButton("Время +5 мин", () => GetHud()?.AddTime(300.0));
+        AddButton("Время +10 сек", () => GetHud()?.AddTime(10.0));
+
+        AddSection("Уровень");
         AddButton("Уровень +1", () => GetLvl()?.GrantLevels(1));
         AddButton("Уровень +5", () => GetLvl()?.GrantLevels(5));
 
@@ -73,6 +79,14 @@ public partial class DebugMenu : CanvasLayer
         var label = new Label();
         label.Text = text;
         label.AddThemeFontSizeOverride("font_size", 20);
+        _vBox.AddChild(label);
+    }
+
+    private void AddSection(string text)
+    {
+        var label = new Label();
+        label.Text = text;
+        label.AddThemeFontSizeOverride("font_size", 14);
         _vBox.AddChild(label);
     }
 
@@ -88,6 +102,11 @@ public partial class DebugMenu : CanvasLayer
     private EnemySpawner GetSpawner()
     {
         return GetTree().CurrentScene?.GetNodeOrNull<EnemySpawner>("Arena/EnemySpawner");
+    }
+
+    private PlayerHud GetHud()
+    {
+        return GetTree().CurrentScene?.GetNodeOrNull<PlayerHud>("PlayerHud");
     }
 
     private Lvl GetLvl()

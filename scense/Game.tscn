@@ -16,6 +16,9 @@
 [ext_resource type="PackedScene" uid="uid://r0ckethom1ng1" path="res://scense/HomingRocket.tscn" id="12_hrock"]
 [ext_resource type="PackedScene" uid="uid://dr0n3scen3nd01" path="res://scense/CommanderDrone.tscn" id="13_cdrn"]
 [ext_resource type="PackedScene" uid="uid://ab1l1tyhud5cn" path="res://scense/AbilityHud.tscn" id="14_ahud"]
+[ext_resource type="PackedScene" uid="uid://beaconlayer0" path="res://scense/BeaconLayer.tscn" id="15_beam"]
+[ext_resource type="PackedScene" uid="uid://playerhud0001" path="res://scense/PlayerHud.tscn" id="16_plh"]
+[ext_resource type="PackedScene" uid="uid://casemgr00001" path="res://scense/CaseManager.tscn" id="17_case"]
 
 [node name="Game" type="Node2D" unique_id=1256089766]
 position = Vector2(0, -2)
@@ -39,6 +42,8 @@ DroneScene = ExtResource("13_cdrn")
 
 [node name="EnemySpawner" parent="Arena" unique_id=965146668 instance=ExtResource("4_tkedd")]
 
+[node name="CaseManager" parent="Arena" unique_id=777001777 instance=ExtResource("17_case")]
+
 [node name="Counter" parent="." unique_id=2033425006 instance=ExtResource("5_4mf1w")]
 
 [node name="PauseMenu" parent="." unique_id=1331511988 instance=ExtResource("6_4mf1w")]
@@ -53,3 +58,7 @@ script = ExtResource("9_jahpc")
 [node name="DebugMenu" parent="." unique_id=747474747 instance=ExtResource("11_dbgm")]
 
 [node name="AbilityHud" parent="." unique_id=984317623 instance=ExtResource("14_ahud")]
+
+[node name="BeaconLayer" parent="." unique_id=703114502 instance=ExtResource("15_beam")]
+
+[node name="PlayerHud" parent="." unique_id=622008913 instance=ExtResource("16_plh")]

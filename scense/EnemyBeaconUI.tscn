@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://ryrd8g0rhr4a"]
+
+[ext_resource type="Texture2D" path="res://assets/placeholders/beacon_enemy.svg" id="1_ebi"]
+[ext_resource type="Texture2D" path="res://assets/placeholders/beacon_boss.svg" id="2_ebi"]
+[ext_resource type="Script" path="res://scripts/EnemyBeacon.cs" id="3_ebi"]
+
+[node name="EnemyBeaconUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 44.0
+offset_bottom = 44.0
+pivot_offset = Vector2(22, 22)
+mouse_filter = 2
+script = ExtResource("3_ebi")
+EnemyIcon = ExtResource("1_ebi")
+BossIcon = ExtResource("2_ebi")
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource("1_ebi")
+stretch_mode = 5
+
+[node name="Count" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = -18.0
+offset_right = 16.0
+offset_bottom = 4.0
+grow_horizontal = 2
+text = "10"
+horizontal_alignment = 1
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 16

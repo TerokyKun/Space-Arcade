@@ -2,7 +2,9 @@ using Godot;
 
 public partial class HealPickup : Area2D
 {
-    [Export] public float HealAmount = 25f;
+    // Лечение в процентах от текущего максимального HP, чтобы работало и при 100 HP,
+    // и при накопленных 4000+: само значение масштабируется вместе со здоровьем.
+    [Export(PropertyHint.Range, "0.01,1,0.01")] public float HealPercent = 0.2f;
 
     [Export] public float DriftSpeed = 18f;
     [Export] public float FloatAmplitude = 8f;
@@ -75,7 +77,8 @@ public partial class HealPickup : Area2D
         if (health == null || health.Team != Health.TeamType.Player)
             return;
 
-        health.Heal(HealAmount);
+        float heal = Mathf.Max(1f, health.MaxHP * HealPercent);
+        health.Heal(heal);
         QueueFree();
     }
 

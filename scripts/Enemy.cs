@@ -179,7 +179,6 @@ public partial class Enemy : CharacterBody2D
         for (int i = 0; i < count; i++)
         {
             var drop = DropPickup.Instantiate<DropPickup>();
-            GetTree().CurrentScene.AddChild(drop);
 
             Vector2 offset = new Vector2(
                 _rng.RandfRange(-DropScatterRadius, DropScatterRadius),
@@ -191,6 +190,11 @@ public partial class Enemy : CharacterBody2D
                 : offset.Normalized();
 
             drop.Initialize(GlobalPosition + offset, direction * DropInitialImpulse);
+
+            // SpawnDrops вызывается из колбэка физики (BodyEntered → урон → сигнал Health),
+            // поэтому добавление в дерево нужно откладывать, иначе Godot падает:
+            // "Can't change this state while flushing queries".
+            GetTree().CurrentScene.CallDeferred(Node.MethodName.AddChild, drop);
         }
     }
 

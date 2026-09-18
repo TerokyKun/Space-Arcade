@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://beaconlayer0"]
+
+[ext_resource type="Script" path="res://scripts/EnemyBeaconSystem.cs" id="1_bl"]
+[ext_resource type="PackedScene" uid="uid://enemybeaconu1" path="res://scense/EnemyBeaconUI.tscn" id="2_bl"]
+
+[node name="BeaconLayer" type="CanvasLayer"]
+script = ExtResource("1_bl")
+BeaconScene = ExtResource("2_bl")

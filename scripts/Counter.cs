@@ -2,6 +2,10 @@ using Godot;
 
 public partial class Counter : CanvasLayer
 {
+    // Единое событие смерти РЕАЛЬНОГО врага (шедутся только Team == Enemy,
+    // зарегистрированные спавнером; камни/хилки/снаряды сюда не попадают).
+    [Signal] public delegate void EnemyKilledEventHandler();
+
     private Label _scoreLabel;
     private int _score = 0;
 
@@ -51,6 +55,7 @@ public partial class Counter : CanvasLayer
     private void OnEnemyDied()
     {
         AddScore(25);
+        EmitSignal(SignalName.EnemyKilled);
     }
 
     public void AddScore(int amount)
