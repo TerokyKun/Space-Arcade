@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c3gs8sw36k441"]
+
+[ext_resource type="Script" path="res://scripts/cases/CaseMarker.cs" id="1_cmk"]
+
+[node name="CaseMarkerLayer" type="CanvasLayer"]
+
+[node name="CaseMarker" type="Control" parent="."]
+mouse_filter = 2
+script = ExtResource("1_cmk")

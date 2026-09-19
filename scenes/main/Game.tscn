@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://bncabpx7uw508"]
+
+[ext_resource type="PackedScene" uid="uid://y7fylnv8qesg" path="res://scenes/main/Menu.tscn" id="1_32c2h"]
+[ext_resource type="PackedScene" uid="uid://ct06omuro8fqv" path="res://scenes/gameplay/Arena.tscn" id="1_lomdn"]
+[ext_resource type="PackedScene" uid="uid://f7t0np06leh0" path="res://scenes/player/Player.tscn" id="2_tkedd"]
+[ext_resource type="Script" uid="uid://dikj4odlrhc4c" path="res://scripts/player/RocketmanAbility.cs" id="4_6yh1h"]
+[ext_resource type="PackedScene" uid="uid://fq4jtidtvxa1" path="res://scenes/gameplay/EnemySpawner.tscn" id="4_tkedd"]
+[ext_resource type="PackedScene" uid="uid://cmk2orlegmy6x" path="res://scenes/ui/Counter.tscn" id="5_4mf1w"]
+[ext_resource type="PackedScene" uid="uid://dmll4kt4f26u2" path="res://scenes/ui/Pause.tscn" id="6_4mf1w"]
+[ext_resource type="Script" uid="uid://cqgtedma2tgj3" path="res://scripts/player/CommanderDroneManager.cs" id="6_du45n"]
+[ext_resource type="PackedScene" uid="uid://bfqdpb34o6vr6" path="res://scenes/ui/lvl.tscn" id="7_2gsql"]
+[ext_resource type="PackedScene" uid="uid://cwwkbpjffk7wg" path="res://scenes/ui/UpgradeMenu.tscn" id="8_hgtb2"]
+[ext_resource type="Script" uid="uid://d2u0p5deflxw3" path="res://scripts/upgrades/UpgradeDatabase.cs" id="9_jahpc"]
+[ext_resource type="Script" uid="uid://cp4lx7byu4ygq" path="res://scripts/player/TeleportAbility.cs" id="10_o7tio"]
+[ext_resource type="PackedScene" uid="uid://dbgmenu0v2h8a" path="res://scenes/ui/DebugMenu.tscn" id="11_dbgm"]
+[ext_resource type="PackedScene" uid="uid://cjo21lsod75fy" path="res://scenes/gameplay/HomingRocket.tscn" id="12_hrock"]
+[ext_resource type="PackedScene" uid="uid://d2fy3ms35k4a3" path="res://scenes/gameplay/CommanderDrone.tscn" id="13_cdrn"]
+[ext_resource type="PackedScene" uid="uid://b1l1tyhud5cn" path="res://scenes/ui/AbilityHud.tscn" id="14_ahud"]
+[ext_resource type="PackedScene" uid="uid://beaconlayer0" path="res://scenes/gameplay/BeaconLayer.tscn" id="15_beam"]
+[ext_resource type="PackedScene" uid="uid://playerhud0001" path="res://scenes/player/PlayerHud.tscn" id="16_plh"]
+[ext_resource type="PackedScene" uid="uid://casemgr00001" path="res://scenes/cases/CaseManager.tscn" id="17_case"]
+[ext_resource type="Script" uid="uid://bs62dwx2lledq" path="res://scripts/core/DifficultyManager.cs" id="18_dm"]
+[ext_resource type="PackedScene" uid="uid://c3gs8sw36k441" path="res://scenes/cases/CaseMarker.tscn" id="19_case_marker"]
+[ext_resource type="Script" uid="uid://ca2h6qg5pqikj" path="res://scripts/companions/CompanionManager.cs" id="20_cmpn"]
+[ext_resource type="PackedScene" uid="uid://bxase46iq7iyy" path="res://scenes/companions/RewardUI.tscn" id="21_reward"]
+[ext_resource type="Script" uid="uid://do4ae1q5cnadl" path="res://scripts/ui/SettingsManager.cs" id="22_settings_mgr"]
+[ext_resource type="PackedScene" path="res://scenes/ui/Settings.tscn" id="23_settings"]
+
+[node name="Game" type="Node2D"]
+
+[node name="Menu" parent="." instance=ExtResource("1_32c2h")]
+
+[node name="Arena" parent="." instance=ExtResource("1_lomdn")]
+
+[node name="Player" parent="Arena" instance=ExtResource("2_tkedd")]
+
+[node name="RocketmanAbility" type="Node" parent="Arena/Player"]
+script = ExtResource("4_6yh1h")
+RocketScene = ExtResource("12_hrock")
+
+[node name="TeleportAbility" type="Node" parent="Arena/Player"]
+script = ExtResource("10_o7tio")
+
+[node name="CommanderDroneManager" type="Node" parent="Arena/Player"]
+script = ExtResource("6_du45n")
+DroneScene = ExtResource("13_cdrn")
+
+[node name="EnemySpawner" parent="Arena" instance=ExtResource("4_tkedd")]
+
+[node name="CaseManager" parent="Arena" instance=ExtResource("17_case")]
+
+[node name="Counter" parent="." instance=ExtResource("5_4mf1w")]
+
+[node name="PauseMenu" parent="." instance=ExtResource("6_4mf1w")]
+
+[node name="lvl" parent="." instance=ExtResource("7_2gsql")]
+
+[node name="UpgradeMenu" parent="." instance=ExtResource("8_hgtb2")]
+
+[node name="UpgradeDatabase" type="Node" parent="."]
+script = ExtResource("9_jahpc")
+
+[node name="DebugMenu" parent="." instance=ExtResource("11_dbgm")]
+
+[node name="AbilityHud" parent="." instance=ExtResource("14_ahud")]
+
+[node name="BeaconLayer" parent="." instance=ExtResource("15_beam")]
+
+[node name="PlayerHud" parent="." instance=ExtResource("16_plh")]
+
+[node name="CaseMarkerLayer" parent="." instance=ExtResource("19_case_marker")]
+
+[node name="DifficultyManager" type="Node" parent="."]
+script = ExtResource("18_dm")
+
+[node name="CompanionManager" type="Node" parent="."]
+script = ExtResource("20_cmpn")
+
+[node name="RewardUI" parent="." instance=ExtResource("21_reward")]
+
+[node name="SettingsManager" type="Node" parent="."]
+script = ExtResource("22_settings_mgr")
+
+[node name="SettingsMenu" parent="." instance=ExtResource("23_settings")]

@@ -1,0 +1,25 @@
+[gd_resource type="Resource" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/enemies/EnemyConfig.cs" id="1_cfg"]
+[ext_resource type="Texture2D" path="res://assets/placeholders/enemy_fast.svg" id="2_ico"]
+
+[resource]
+script = ExtResource("1_cfg")
+Kind = 1
+ConfigName = "Fast"
+Icon = ExtResource("2_ico")
+ScaleMultiplier = 0.8
+MaxHP = 55.0
+Acceleration = 900.0
+MaxSpeed = 220.0
+Friction = 500.0
+TurnSpeed = 7.0
+FireCooldown = 4.5
+StopDistance = 140.0
+BulletSpeed = 420.0
+BulletDamage = 6.0
+DropMin = 1
+DropMax = 4
+XpReward = 6
+IsRanged = false
+IsBoss = false

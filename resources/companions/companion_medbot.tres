@@ -1,0 +1,31 @@
+[gd_resource type="Resource" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/companions/CompanionDefinition.cs" id="1_cdef"]
+[ext_resource type="Texture2D" path="res://assets/placeholders/companion_medbot.svg" id="2_cico"]
+
+[resource]
+script = ExtResource("1_cdef")
+Id = 0
+DisplayName = "Мед-Бот"
+Rarity = 0
+Icon = ExtResource("2_cico")
+Description = "Пассивный дрон. Поддерживает здоровье игрока в бою."
+EffectText = "+1% HP каждые 3 сек"
+Cooldown = 3.0
+Damage = 0.0
+Range = 0.0
+HealPercentPerTick = 0.01
+DamageReductionPercent = 0.0
+ProjectileCount = 0
+Spread = 0.0
+MaxHP = 90.0
+RegenRate = 4.0
+RegenDelay = 3.0
+FollowDistance = 55.0
+MoveSmoothing = 4.0
+BurnDamagePerSec = 0.0
+BurnDuration = 0.0
+BurnMaxStacks = 1
+BurstCount = 1
+BurstGap = 0.1
+ProjectileSpeed = 950.0

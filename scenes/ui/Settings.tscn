@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/SettingsMenu.cs" id="1_smenu"]
+
+[node name="SettingsMenu" type="CanvasLayer" unique_id=310000101]
+script = ExtResource("1_smenu")

@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://dmll4kt4f26u2"]
+
+[ext_resource type="Script" path="res://scripts/core/GameManager.cs" id="1_8jub7"]
+[ext_resource type="Script" path="res://scripts/core/PauseMenu.cs" id="1_rxrxa"]
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=1331511988]
+script = ExtResource("1_rxrxa")
+
+[node name="Panel" type="Panel" parent="." unique_id=1472050050]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -130.0
+offset_right = 160.0
+offset_bottom = 135.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Paused" type="Label" parent="Panel" unique_id=2061379115]
+layout_mode = 1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -120.0
+offset_top = 12.0
+offset_right = 120.0
+offset_bottom = 44.0
+text = "Пауза"
+horizontal_alignment = 1
+vertical_alignment = 1
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 28
+
+[node name="Resume" type="Button" parent="Panel" unique_id=2120005211]
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.0
+offset_top = 6.0
+offset_right = 70.0
+offset_bottom = 42.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Продолжить (Esc)"
+
+[node name="Settings" type="Button" parent="Panel" unique_id=2120005212]
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.0
+offset_top = 48.0
+offset_right = 70.0
+offset_bottom = 84.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Настройки"
+
+[node name="Quit" type="Button" parent="Panel" unique_id=1102946537]
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.0
+offset_top = 90.0
+offset_right = 70.0
+offset_bottom = 126.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.1254902, 0.1882353, 1)
+text = "Выйти"
+
+[node name="GameManager" type="Node" parent="." unique_id=1359489881]
+script = ExtResource("1_8jub7")

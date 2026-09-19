@@ -1,0 +1,25 @@
+[gd_resource type="Resource" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/enemies/EnemyConfig.cs" id="1_cfg"]
+[ext_resource type="Texture2D" path="res://assets/placeholders/enemy_boss.svg" id="2_ico"]
+
+[resource]
+script = ExtResource("1_cfg")
+Kind = 5
+ConfigName = "Boss"
+Icon = ExtResource("2_ico")
+ScaleMultiplier = 2.0
+MaxHP = 3000.0
+Acceleration = 350.0
+MaxSpeed = 70.0
+Friction = 600.0
+TurnSpeed = 2.0
+FireCooldown = 0.8
+StopDistance = 260.0
+BulletSpeed = 430.0
+BulletDamage = 24.0
+DropMin = 10
+DropMax = 20
+XpReward = 80
+IsRanged = false
+IsBoss = true

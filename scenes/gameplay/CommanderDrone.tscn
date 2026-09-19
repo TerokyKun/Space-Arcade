@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://d2fy3ms35k4a3"]
+
+[ext_resource type="Script" path="res://scripts/player/CommanderDrone.cs" id="1_cd"]
+[ext_resource type="PackedScene" uid="uid://dr0n3sh0t5c3n" path="res://scenes/gameplay/CommanderShot.tscn" id="2_cd"]
+[ext_resource type="Texture2D" uid="uid://7o7y0ahgk2bg" path="res://icon.svg" id="3_cd"]
+
+[node name="CommanderDrone" type="Area2D"]
+collision_layer = 32
+script = ExtResource("1_cd")
+DroneShotScene = ExtResource("2_cd")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+modulate = Color(0.2, 1, 0.7, 1)
+scale = Vector2(0.16, 0.16)
+texture = ExtResource("3_cd")

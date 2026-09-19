@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://bfqdpb34o6vr6"]
+
+[ext_resource type="Script" path="res://scripts/ui/Lvl.cs" id="1_s7iwq"]
+[ext_resource type="Script" path="res://scripts/ui/XpBar.cs" id="2_xpbar"]
+
+[node name="lvl" type="CanvasLayer" unique_id=774469885]
+script = ExtResource("1_s7iwq")
+
+[node name="Panel" type="Panel" parent="." unique_id=316833788]
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -170.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 108.0
+grow_horizontal = 0
+
+[node name="Margin" type="MarginContainer" parent="Panel" unique_id=316833789]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 6
+
+[node name="VBox" type="VBoxContainer" parent="Panel/Margin" unique_id=316833790]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Row" type="HBoxContainer" parent="Panel/Margin/VBox" unique_id=316833791]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="Panel/Margin/VBox/Row" unique_id=316833792]
+custom_minimum_size = Vector2(52, 0)
+layout_mode = 2
+text = "Lvl: 0"
+vertical_alignment = 1
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 15
+
+[node name="XpBar" type="Control" parent="Panel/Margin/VBox/Row" unique_id=316833901]
+custom_minimum_size = Vector2(86, 13)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+script = ExtResource("2_xpbar")
+
+[node name="XpGainLabel" type="Label" parent="Panel/Margin/VBox" unique_id=316833902]
+visible = false
+layout_mode = 2
+text = "+25 EXP"
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.45, 0.75, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+
+[node name="ChooseUpgradeButton" type="Button" parent="Panel/Margin/VBox" unique_id=316833794]
+visible = false
+layout_mode = 2
+custom_minimum_size = Vector2(0, 26)
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+text = "Upgrade!"

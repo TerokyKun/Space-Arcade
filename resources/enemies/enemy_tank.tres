@@ -1,0 +1,25 @@
+[gd_resource type="Resource" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/enemies/EnemyConfig.cs" id="1_cfg"]
+[ext_resource type="Texture2D" path="res://assets/placeholders/enemy_tank.svg" id="2_ico"]
+
+[resource]
+script = ExtResource("1_cfg")
+Kind = 2
+ConfigName = "Tank"
+Icon = ExtResource("2_ico")
+ScaleMultiplier = 1.35
+MaxHP = 400.0
+Acceleration = 350.0
+MaxSpeed = 55.0
+Friction = 600.0
+TurnSpeed = 2.5
+FireCooldown = 2.2
+StopDistance = 220.0
+BulletSpeed = 380.0
+BulletDamage = 18.0
+DropMin = 4
+DropMax = 10
+XpReward = 14
+IsRanged = false
+IsBoss = false

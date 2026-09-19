@@ -1,0 +1,25 @@
+[gd_resource type="Resource" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/enemies/EnemyConfig.cs" id="1_cfg"]
+[ext_resource type="Texture2D" path="res://assets/placeholders/enemy_normal.svg" id="2_ico"]
+
+[resource]
+script = ExtResource("1_cfg")
+Kind = 0
+ConfigName = "Normal"
+Icon = ExtResource("2_ico")
+ScaleMultiplier = 1.0
+MaxHP = 100.0
+Acceleration = 700.0
+MaxSpeed = 100.0
+Friction = 500.0
+TurnSpeed = 5.0
+FireCooldown = 3.0
+StopDistance = 150.0
+BulletSpeed = 450.0
+BulletDamage = 10.0
+DropMin = 2
+DropMax = 6
+XpReward = 8
+IsRanged = false
+IsBoss = false

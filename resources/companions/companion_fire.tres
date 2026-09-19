@@ -1,0 +1,31 @@
+[gd_resource type="Resource" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/companions/CompanionDefinition.cs" id="1_cdef"]
+[ext_resource type="Texture2D" path="res://assets/placeholders/companion_fire.svg" id="2_cico"]
+
+[resource]
+script = ExtResource("1_cdef")
+Id = 2
+DisplayName = "Огненный спутник"
+Rarity = 2
+Icon = ExtResource("2_cico")
+Description = "Атакующий спутник, поджигающий ближайшего врага."
+EffectText = "Лазер + горение 18/с на 4с"
+Cooldown = 1.6
+Damage = 18.0
+Range = 850.0
+HealPercentPerTick = 0.0
+DamageReductionPercent = 0.0
+ProjectileCount = 1
+Spread = 0.0
+MaxHP = 120.0
+RegenRate = 3.5
+RegenDelay = 3.0
+FollowDistance = 100.0
+MoveSmoothing = 4.0
+BurnDamagePerSec = 18.0
+BurnDuration = 4.0
+BurnMaxStacks = 3
+BurstCount = 1
+BurstGap = 0.1
+ProjectileSpeed = 950.0

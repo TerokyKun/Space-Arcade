@@ -1,0 +1,25 @@
+[gd_resource type="Resource" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/enemies/EnemyConfig.cs" id="1_cfg"]
+[ext_resource type="Texture2D" path="res://assets/placeholders/enemy_ranged.svg" id="2_ico"]
+
+[resource]
+script = ExtResource("1_cfg")
+Kind = 3
+ConfigName = "Ranged"
+Icon = ExtResource("2_ico")
+ScaleMultiplier = 0.9
+MaxHP = 80.0
+Acceleration = 450.0
+MaxSpeed = 80.0
+Friction = 500.0
+TurnSpeed = 3.0
+FireCooldown = 1.6
+StopDistance = 360.0
+BulletSpeed = 600.0
+BulletDamage = 12.0
+DropMin = 2
+DropMax = 5
+XpReward = 10
+IsRanged = true
+IsBoss = false

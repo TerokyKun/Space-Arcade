@@ -274,3 +274,111 @@ Health:          ApplyDamage → HealthChanged (+ Died при 0) → AutoFreeOwn
 - Этап 2: `dotnet build "wd test.csproj"` после правок классификации — повторён, см. результат сборки.
 - Запуск внутри редактора Godot не выполнялся (нет GUI в окружении); поведение проверено
   статическим разбором: камни/хилки не попадают в группу `enemy`, слои коллизий разделяют роли.
+
+---
+
+# Этап 3 (2026-09-19): компаньоны, апгрейды, настройки, реструктуризация
+
+## 3.1 Новая структура проекта
+
+| Путь | Назначение |
+|---|---|
+| `scenes/main/` | `Game.tscn`, `Menu.tscn` |
+| `scenes/gameplay/` | `Arena`, `EnemySpawner`, `Enemy`, `Asteroid`, `Bullet`, `HomingRocket`, `DropPickup`, `HealPickup`, `CommanderDrone`, `CommanderShot`, `BeaconLayer`, `EnemyBeaconUI` |
+| `scenes/player/` | `Player.tscn`, `PlayerHud.tscn` |
+| `scenes/companions/` | `CompanionRuntime`, `CompanionCard`, `RewardUI` |
+| `scenes/cases/` | `CaseManager`, `CaseZone`, `CaseMarker`, `CaseProgressUI` |
+| `scenes/ui/` | `lvl`, `Counter`, `Pause`, `UpgradeMenu`, `DebugMenu`, `Settings`, `AbilityHud` |
+| `scripts/core/` | `GameManager`, `Menu`, `PauseMenu`, `Health`, `HealthBar`, `DifficultyManager`, `GameOverUI`, `RestartButton`, `PlayerClassType`, `SpaceBackground`, `Bullet` |
+| `scripts/player/` | `Player`, `PlayerUpgrades`, `PlayerProgress` (мёртвый), `PlayerHud`, `LevelHud`, `CommanderDrone`, `CommanderDroneManager`, `CommanderShot`, `HomingRocket`, `RocketmanAbility`, `TeleportAbility` |
+| `scripts/enemies/` | `Enemy`, `EnemyConfig`, `EnemySpawner`, `Asteroid`, `EnemyBeacon`, `EnemyBeaconSystem` |
+| `scripts/companions/` | `CompanionManager`, `CompanionRuntime`, `CompanionDefinition`, `CompanionCatalog`, `CompanionRarity`, `CompanionCard`, `RewardUI` |
+| `scripts/cases/` | `CaseManager`, `CaseZone`, `CaseMarker`, `CaseProgressUI` |
+| `scripts/upgrades/` | `UpgradeDatabase`, `UpgradeDefinition`, `UpgradeKind`, `UpgradeRarity`, `UpgradeMenu` |
+| `scripts/ui/` | `Lvl`, `XpBar`, `Counter`, `DebugMenu`, `SettingsManager`, `SettingsMenu`, `AbilityHud` |
+| `scripts/items/` | `DropPickup`, `HealPickup` |
+| `resources/companions/` | 4× `.tres` компаньонов |
+| `resources/enemies/` | 6× `.tres` конфигов врагов |
+| `resources/upgrades.json` | Источник данных апгрейдов (перенесён из `data/`) |
+
+Все `res://`-ссылки в сценах/скриптах/ресурсах переписаны на новые пути и проверены
+(139 ссылок, все резолвятся). Дубликат `scripts/upgrades.json` и мёртвый `SpaceObjectSpawner.cs.uid` удалены.
+
+## 3.2 Компаньоны (самостоятельные сущности)
+
+- Сцена `scenes/companions/CompanionRuntime.tscn`: `Area2D` (collision_layer **32**, mask 0),
+  дети `Sprite`, `Hitbox` (circle 24), `HealthBar`, `Health` (Team=Ally, `AutoFreeOwner=false`).
+- `CompanionManager` (синглтон, узел в `Game.tscn`): хранит `Dictionary<CompanionId, CompanionRuntime>`,
+  спавнит рантаймы в `CurrentScene` (через `CallDeferred`), обеспечивает орбитальное следование
+  за игроком с разведением позиций (без обгона), маршрутизацию урона и выдачу за кейсы.
+- Компаньоны **постоянны за забег**: смерть снимает их из менеджера; заново получаются
+  через карточку кейса (`RewardUI` исключает только активных, погибших снова предлагает).
+- Урон: пули врага включают слой 32 в маску рейкаста —
+  `(uint)(1|2|4|16|CompanionRuntime.CompanionCollisionLayer)`; пули игрока (маска 1|2|4|16)
+  не задевают компаньонов (свой огонь исключён).
+- `CompanionCatalog`/`CompanionDefinition` (MaxHP, RegenRate, RegenDelay, FollowDistance,
+  MoveSmoothing, Burn*, BurstCount/BurstGap/ProjectileSpeed). Баланс:
+  MedBot 90/4/55 (лечит +1% HP игрока раз в 3 c), Guardian 150/4/60 (−8% урона),
+  Fire 120/3.5/100 (лазер-луч, поджог 18/с, 4 c, 3 стака), Drone 180/5/120 (залп 5×8).
+
+## 3.3 Смерть игрока и заморозка счёта
+
+- `Health` игрока: `AutoFreeOwner=false` — сцена не удаляется при смерти, поддерживается `Revive(float percent)`.
+- `Player.OnDied()`: если `PlayerUpgrades.TryRevive()` (Second Wind) — ревайв на
+  `ReviveHealthPercent` с `ReviveInvulnerability`; иначе `GameManager.NotifyGameOver()` +
+  `Menu.ShowOnDeath()`.
+- `GameManager.IsGameOver` (static) + `NotifyGameOver()` (пауза-лок `game_over`) и `NotifyGameRestart()`.
+- Заморожены при GameOver: `Counter.AddScore`/`_Process`, `Lvl.AddGears`, `EnemySpawner._Process`, `DifficultyManager._Process`.
+- `Menu` переведён в `ProcessMode.Always` — кнопка Restart работает из паузы-лoка.
+
+## 3.4 Астероиды: дистанция спавна
+
+- Новый спавн-кольцо: `inner = max(AsteroidSpawnRadius=900, GetVisibleHalfDiagonal()*1.25)`,
+  `outer = inner * 1.7`. Астероиды всегда появляются за пределами видимой области.
+- Каденция: `max(1.2 c, AsteroidSpawnInterval * IntervalMultiplier)`; в первую минуту
+  `≥ AsteroidSpawnInterval`. После 3 мин — бурст +1 (25%), после 7 мин — +1 (40%).
+
+## 3.5 Апгрейды: 6 редкостей и мифики
+
+- Редкости: Common / Uncommon / Rare / Epic / Legendary / **Mythic**
+  (`UpgradeRarity` + `DisplayName/Color/Tag/WeightMultiplier`, взвешенный выбор в `UpgradeMenu`).
+- Новые эффекты: ExtraLife (Second Wind + ревайв), KillBuff (стаки за убийства → множитель урона
+  с таймером), Singularity (самонаведение пуль), SplitCore (раздвоение пуль ±0.35 рад, 60% урона),
+  TimeFracture (шанс замедлить врага через `Enemy.ApplySlow`), LastStand (+урон при HP<25%).
+- `PlayerUpgrades`: `ExtraLives/ReviveHealthPercent/ReviveInvulnerability`, KillBuff-стаки,
+  `GetBulletDamageMultiplier(bool lowHp)`, `NotifyKill()` (подписка `Counter.EnemyKilled`).
+
+## 3.6 XP/уровень — новый UI
+
+- `XpBar` (скрипт-отрисовка): серая база, голубое заполнение с гашением (~1.5 c простоя →
+  ~1 c фейд), золотой шайм+«бегущий блик» при доступном апгрейте. Внутренний XP не сбрасывается.
+- `lvl.tscn`: панель 170×98 (справа сверху), строка «Уровень + XpBar», всплывашка «+N EXP»
+  (1.1 c показ + 0.6 c фейд), кнопка «ChooseUpgrade». `Lvl` — `ProcessMode.Always`,
+  `AddGears(amount, showFeedback)`.
+
+## 3.7 Настройки (видео/звук)
+
+- `SettingsManager` (узел в `Game.tscn`): `user://settings.cfg`; видеорайоны, fullscreen,
+  vsync, `ContentScaleFactor` + `Engine.MaxFps`; аудио Master/Music/SFX (шины создаются
+  `EnsureAudioBuses`, mute при ≤ −40 дБ).
+- `SettingsMenu` — UI строится в коде (CanvasLayer, ProcessMode.Always), вкладки VIDEO/AUDIO.
+- Доступ: кнопка в `Pause.tscn` (панель растянута до −160,−130..160,135) + «Настройки: открыть/сброс»
+  в DebugMenu.
+
+## 3.8 Debug-меню
+
+- Категории: SPAWN / ENEMIES / CASES / TIME / LEVEL / COMPANIONS / SETTINGS.
+- Компаньоны: статус-лейбл (HP текущее/макс + активность через `GetAllRuntimes`/`GetDebugHp`),
+  «Дать: тип», «Дать: случайный», «Очистить всех», «Восстановить HP всем», «Убить все»
+  (`CompanionRuntime.DebugKill/DebugRestoreHp`), «Обновить статус».
+
+## 3.9 Осталось «мёртвое» (не критично)
+
+- `PlayerProgress.cs`, `GameOverUI.cs`, `RestartButton.cs` — не подключены в сценах.
+- `Enemy._hpBar` по-прежнему ищет несуществующий `ProgressBar` (рабочая полоска — через HealthBar).
+
+## Проверка этапа 3
+
+- `dotnet build "wd test.csproj"` — 0 ошибок, 0 предупреждений.
+- Все `res://`-ссылки резолвятся (скрипт-аудит): `scense/`, `data/` отсутствуют.
+- Запуск в редакторе Godot не выполнялся (нет GUI); поведение проверено статическим анализом.

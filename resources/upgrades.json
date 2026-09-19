@@ -1,0 +1,240 @@
+{
+  "classes": [
+    {
+      "id": "teleporter",
+      "kind": "ChooseClass",
+      "title": "Телепортёр",
+      "description": "Shift: телепорт вперёд.",
+      "class_choice": "Teleporter",
+      "rarity": "Rare",
+      "weight": 1
+    },
+    {
+      "id": "commander",
+      "kind": "ChooseClass",
+      "title": "Коммандер",
+      "description": "3 дрона стреляют по врагам.",
+      "class_choice": "Commander",
+      "rarity": "Rare",
+      "weight": 1
+    },
+    {
+      "id": "rocketman",
+      "kind": "ChooseClass",
+      "title": "Ракетчик",
+      "description": "8% шанс самонаводящейся ракеты.",
+      "class_choice": "Rocketman",
+      "rarity": "Rare",
+      "weight": 1
+    }
+  ],
+  "stats": [
+    {
+      "id": "hp_1",
+      "kind": "MaxHP",
+      "title": "+20% HP",
+      "description": "Больше запас здоровья.",
+      "value": 0.2,
+      "rarity": "Common",
+      "weight": 10
+    },
+    {
+      "id": "firerate_1",
+      "kind": "FireRate",
+      "title": "+15% скорострельность",
+      "description": "Быстрее выстрелы.",
+      "value": 0.15,
+      "rarity": "Common",
+      "weight": 10
+    },
+    {
+      "id": "speed_1",
+      "kind": "MoveSpeed",
+      "title": "+10% скорость",
+      "description": "Быстрее передвижение.",
+      "value": 0.1,
+      "rarity": "Common",
+      "weight": 10
+    },
+    {
+      "id": "damage_1",
+      "kind": "BulletDamage",
+      "title": "+20% урон пули",
+      "description": "Больше урона.",
+      "value": 0.2,
+      "rarity": "Common",
+      "weight": 10
+    },
+    {
+      "id": "size_1",
+      "kind": "BulletSize",
+      "title": "+10% размер пули",
+      "description": "Крупнее снаряды.",
+      "value": 0.1,
+      "rarity": "Common",
+      "weight": 8
+    },
+    {
+      "id": "hp_2",
+      "kind": "MaxHP",
+      "title": "+25% HP",
+      "description": "Ещё больше здоровья.",
+      "value": 0.25,
+      "rarity": "Uncommon",
+      "weight": 7
+    },
+    {
+      "id": "damage_2",
+      "kind": "BulletDamage",
+      "title": "+15% урон",
+      "description": "Улучшенные снаряды.",
+      "value": 0.15,
+      "rarity": "Uncommon",
+      "weight": 7
+    },
+    {
+      "id": "firerate_2",
+      "kind": "FireRate",
+      "title": "+10% скорострельность",
+      "description": "Улучшенная обойма.",
+      "value": 0.1,
+      "rarity": "Uncommon",
+      "weight": 7
+    },
+    {
+      "id": "speed_2",
+      "kind": "MoveSpeed",
+      "title": "+15% скорость",
+      "description": "Улучшенный движок.",
+      "value": 0.15,
+      "rarity": "Uncommon",
+      "weight": 7
+    },
+    {
+      "id": "damage_3",
+      "kind": "BulletDamage",
+      "title": "+25% урон пули",
+      "description": "Образцовые снаряды.",
+      "value": 0.25,
+      "rarity": "Rare",
+      "weight": 5
+    },
+    {
+      "id": "extra_projectiles_1",
+      "kind": "ExtraProjectiles",
+      "title": "Двойной ствол",
+      "description": "+1 снаряд за выстрел.",
+      "value": 1,
+      "rarity": "Rare",
+      "weight": 5
+    }
+  ],
+  "epic": [
+    {
+      "id": "kill_buff",
+      "kind": "KillBuff",
+      "title": "Охота",
+      "description": "Убийство: +10% урона на 3с (до 5 стеков).",
+      "value": 0.1,
+      "int_param1": 5,
+      "int_param2": 3,
+      "rarity": "Epic",
+      "weight": 6
+    },
+    {
+      "id": "singularity",
+      "kind": "Singularity",
+      "title": "Сингулярность",
+      "description": "Снаряды слегка тянутся к врагам.",
+      "value": 1,
+      "rarity": "Epic",
+      "weight": 6
+    },
+    {
+      "id": "split_core",
+      "kind": "SplitCore",
+      "title": "Расщеплённое ядро",
+      "description": "При попадании пуля делится на 2.",
+      "value": 1,
+      "rarity": "Epic",
+      "weight": 6
+    },
+    {
+      "id": "time_fracture",
+      "kind": "TimeFracture",
+      "title": "Разлом времени",
+      "description": "25% шанс замедлить врага на 1.5с.",
+      "value": 0.25,
+      "int_param2": 150,
+      "rarity": "Epic",
+      "weight": 6
+    }
+  ],
+  "legendary": [
+    {
+      "id": "rocket_storm",
+      "kind": "ExtraProjectiles",
+      "title": "Ракетный шторм",
+      "description": "+2 снаряда за выстрел.",
+      "value": 2,
+      "rarity": "Legendary",
+      "weight": 4
+    },
+    {
+      "id": "apocalypse",
+      "kind": "BulletDamage",
+      "title": "Оружейный бог",
+      "description": "+60% урон всех пуль и ракет.",
+      "value": 0.6,
+      "rarity": "Legendary",
+      "weight": 4
+    },
+    {
+      "id": "bullet_hell",
+      "kind": "FireRate",
+      "title": "Шквальный огонь",
+      "description": "+50% скорострельность.",
+      "value": 0.5,
+      "rarity": "Legendary",
+      "weight": 4
+    },
+    {
+      "id": "adrenaline",
+      "kind": "MoveSpeed",
+      "title": "Адреналиновый вихрь",
+      "description": "+50% скорость передвижения.",
+      "value": 0.5,
+      "rarity": "Legendary",
+      "weight": 4
+    },
+    {
+      "id": "titan_hp",
+      "kind": "MaxHP",
+      "title": "Живучесть титана",
+      "description": "+80% запас здоровья.",
+      "value": 0.8,
+      "rarity": "Legendary",
+      "weight": 4
+    }
+  ],
+  "mythic": [
+    {
+      "id": "second_wind",
+      "kind": "ExtraLife",
+      "title": "Второе дыхание",
+      "description": "+1 жизнь: возрождение с 50% HP.",
+      "value": 1,
+      "rarity": "Mythic",
+      "weight": 3
+    },
+    {
+      "id": "last_stand",
+      "kind": "LastStand",
+      "title": "Последний рубеж",
+      "description": "При HP<25% урон +50%.",
+      "value": 0.5,
+      "rarity": "Mythic",
+      "weight": 3
+    }
+  ]
+}

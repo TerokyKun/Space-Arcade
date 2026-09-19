@@ -1,0 +1,31 @@
+[gd_resource type="Resource" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/companions/CompanionDefinition.cs" id="1_cdef"]
+[ext_resource type="Texture2D" path="res://assets/placeholders/companion_guardian.svg" id="2_cico"]
+
+[resource]
+script = ExtResource("1_cdef")
+Id = 1
+DisplayName = "Страж"
+Rarity = 1
+Icon = ExtResource("2_cico")
+Description = "Энергетический щит, поглощающий часть урона игрока."
+EffectText = "-8% получаемого урона"
+Cooldown = 0.0
+Damage = 0.0
+Range = 0.0
+HealPercentPerTick = 0.0
+DamageReductionPercent = 0.08
+ProjectileCount = 0
+Spread = 0.0
+MaxHP = 150.0
+RegenRate = 4.0
+RegenDelay = 4.0
+FollowDistance = 60.0
+MoveSmoothing = 4.0
+BurnDamagePerSec = 0.0
+BurnDuration = 0.0
+BurnMaxStacks = 1
+BurstCount = 1
+BurstGap = 0.1
+ProjectileSpeed = 950.0

@@ -1,0 +1,34 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://icon.svg" id="1_ico"]
+[ext_resource type="Script" path="res://scripts/companions/CompanionRuntime.cs" id="2_crun"]
+[ext_resource type="Script" path="res://scripts/core/HealthBar.cs" id="3_hbar"]
+[ext_resource type="Script" path="res://scripts/core/Health.cs" id="4_heat"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_crt"]
+radius = 24.0
+
+[node name="CompanionRuntime" type="Area2D" unique_id=100000901]
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("2_crun")
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=100000902]
+position = Vector2(0, -4)
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("1_ico")
+
+[node name="Hitbox" type="CollisionShape2D" parent="." unique_id=100000903]
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_crt")
+
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=100000904]
+offset_left = -16.0
+offset_top = -42.0
+offset_right = 16.0
+offset_bottom = -37.0
+show_percentage = false
+script = ExtResource("3_hbar")
+
+[node name="Health" type="Node" parent="." unique_id=100000905]
+script = ExtResource("4_heat")
